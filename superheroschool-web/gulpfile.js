@@ -39,10 +39,12 @@ var products = {
 	},
 	deps: {
 		"angular": "./bower_components/angular/angular.js",
+		"angularfire": "./bower_components/angularfire/dist/angularfire.js",
 		"angular-bootstrap": "./bower_components/angular-bootstrap/ui-bootstrap.js",
 		"angular-bootstrap-tpls": "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 		"angular-ui-router": "./bower_components/angular-ui-router/release/angular-ui-router.js",
 		"bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js",
+		"firebase": "./bower_components/firebase/firebase.js",
 		"jquery": "./bower_components/jquery/dist/jquery.js",
 		"jquery-ui": "./bower_components/jquery-ui/jquery-ui.js",
 		"modernizr": "./bower_components/modernizr/modernizr.js"

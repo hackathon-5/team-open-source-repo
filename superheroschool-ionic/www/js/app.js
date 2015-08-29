@@ -6,7 +6,8 @@
 angular.module('starter', [
 'ionic',
 'ui.router',
-'ngCordova'
+'ngCordova',
+'firebase'
 ])
 
 .run(function($ionicPlatform) {
@@ -57,8 +58,16 @@ angular.module('starter', [
   .controller('HomeCtrl', function ($scope) {
 	  console.log('IN HOMECTRL');
   })
-  .controller('TrainingModesCtrl', function ($scope) {
-	  console.log('TrainingModesCtrl');
+  .controller('TrainingModesCtrl', function ($scope, $firebaseObject) {
+	var text = "";
+	var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+	for( var i=0; i < 24; i++ ) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	$scope.user = $firebaseArray(new Firebase("https://luminous-heat-5410.firebaseio.com/users"));
+	$scope.user.id = text;
+	$scope.user.$add();
+
   })
   .controller('CountdownCtrl', function ($scope, $state) {
 	  console.log('CountdownCtrl');
