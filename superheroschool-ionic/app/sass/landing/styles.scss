@@ -1,0 +1,99 @@
+@font-face {
+    font-family: ComixLoud;
+    src: url('fonts/ComixLoud.ttf');
+}
+
+ul {
+	padding-left: 0px;
+}
+
+/*Home Screen*/
+body { 
+	background-image: url("imgs/blue.jpg");	
+	font-family: ComixLoud;
+	color: #FFF;
+
+}
+
+.title_pg1{
+	color: #fed136;
+	font-size: 37px;
+	line-height: 2;
+	transform: rotate(-40deg);
+	margin: 100px 0px -30px 20px;
+
+}
+
+.start_container {
+	display: inline-block;
+	background-image: url("imgs/ryBubble.png");
+	height: 600px;
+	width: 100%;
+}
+
+.start_row .start {
+    margin-top: 70%;
+    margin-left: 10px;
+    transform: rotate(-32deg);
+}
+
+.start_row a  {
+	display: block;
+}
+
+.start_row a:hover  {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.start_row .start span{
+	display: block;
+	vertical-align: middle;
+	line-height: normal;
+	color: #000;
+	line-height: 2;
+	font-size: 27px;
+}
+
+/*Training Modes*/
+
+.title_pg2{
+	color: #fed136;
+	font-size: 37px;
+	line-height: 2;
+}
+
+.tr-mode-container {
+	margin-top: 50%;
+}
+
+.tr-mode-list li {
+	border-radius: 40px;
+	border: 2px solid red;
+	background-color: yellow;
+}
+
+.tr-mode-list li a {
+	display: block;
+	color: red;
+	font-size: 20px;  
+	padding-top: 12px; 
+}
+
+/*Punch Training*/
+.hero-list li {
+	margin-bottom: 20px;
+}
+
+.hero-list li img {
+	width: 100px;
+}
+
+#punch-gauge {
+	height: 600px;
+	width: 125px;
+	background-color: yellow;
+	margin: 0 auto;
+	border: 2px solid red;
+
+}
