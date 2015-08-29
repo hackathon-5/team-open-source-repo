@@ -45,7 +45,7 @@ angular.module('starter', [
         templateUrl: 'tpls/punch-training.html'
       })
       .state('superhero', {
-          url: '/superhero',
+          url: '/superhero/:score',
           controller: 'SuperHeroCtrl',
           templateUrl: 'tpls/superhero.html'
         })
@@ -67,7 +67,6 @@ angular.module('starter', [
 	  var timeLeft = 5, cinterval;
 
 	    var timeDec = function (){
-	    	console.log($scope.val);
 	        timeLeft--;
 	        $scope.val = timeLeft;
 	        $scope.$apply();
@@ -138,8 +137,10 @@ angular.module('starter', [
 	    var timeDec = function (){
 	        timeLeft--;
 	        if(timeLeft === 0){
+        		$('#punchVal').text(0);
 	        	$('#fill').height(100 + '%');
-	        	$state.go('superhero');
+	        	console.log('GOING: ' + num_pow);
+	        	$state.go('/superhero/:score',{score:num_pow});
 	        }
 	    };
 
@@ -147,6 +148,7 @@ angular.module('starter', [
   })
   
   
-  .controller('SuperHeroCtrl', function ($scope) {
+  .controller('SuperHeroCtrl', function ($scope, $stateParams) {
 	  console.log('SuperHeroCtrl');
+	  console.log($stateParams);
   })
