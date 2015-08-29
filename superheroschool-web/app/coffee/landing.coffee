@@ -13,6 +13,7 @@ require './components/landing/index.coffee'
 module.exports = angular.module 'superheroschool.landing', [
   'ui.router'
   'ui.bootstrap'
+  'firebase'
   'superheroschool.templates'
 ]
 
