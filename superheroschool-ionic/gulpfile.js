@@ -3,6 +3,7 @@ var
   async =		require('async'),
   beep =		require('beepbeep');
   browserify =	require('browserify'),
+  colors =		require('colors'),
   del =			require('del'),
   gulp =		require('gulp'),
   coffeelint =	require('gulp-coffeelint'),
@@ -38,11 +39,7 @@ var products = {
 		'./app/coffee/landing.coffee': './www/js/landing.js'
 	},
 	deps: {
-		"angular": "./bower_components/angular/angular.js",
-		"angular-animate": "./bower_components/angular-animate/angular-animate.js",
-		"angular-sanitize": "./bower_components/angular-sanitize/angular-sanitize.js",
-		"angular-ui-router": "./bower_components/angular-ui-router/release/angular-ui-router.js",
-		"ionic": "./bower_components/ionic/js/ionic.js"
+		"ionic": "./bower_components/ionic/js/ionic.bundle.js"
 	}
   }
 };
@@ -172,7 +169,7 @@ gulp.task('templates', function (cb) {
 	    	    }
 		      }))
 		     .pipe(concat('templates.js'))
-		     .pipe(insert.prepend("var angular = require('angular');"))
+		     .pipe(insert.prepend("require('ionic');"))
 		     .pipe(gulp.dest(tpl[1]))
 		     .on('end', done);
 		 };

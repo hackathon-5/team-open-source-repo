@@ -1,6 +1,4 @@
 require 'ionic'
-require 'angular'
-require 'angular-ui-router'
 
 require '../../www/js/templates'
 require './components/landing/index.coffee'

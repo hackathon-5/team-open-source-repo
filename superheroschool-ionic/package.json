@@ -4,6 +4,7 @@
   "description": "superheroschool-ionic: An Ionic project",
   "dependencies": {
     "body-parser": "^1.12.4",
+    "colors": "^1.1.2",
     "compression": "~1.4.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^0.8.2",
