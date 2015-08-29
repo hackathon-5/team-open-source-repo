@@ -58,15 +58,8 @@ angular.module('starter', [
   .controller('HomeCtrl', function ($scope) {
 	  console.log('IN HOMECTRL');
   })
-  .controller('TrainingModesCtrl', function ($scope, $firebaseObject) {
-	var text = "";
-	var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-	for( var i=0; i < 24; i++ ) {
-		text += possible.charAt(Math.floor(Math.random() * possible.length));
-	}
-	$scope.user = $firebaseArray(new Firebase("https://luminous-heat-5410.firebaseio.com/users"));
-	$scope.user.id = text;
-	$scope.user.$add();
+  .controller('TrainingModesCtrl', function ($scope) {
+
 
   })
   .controller('CountdownCtrl', function ($scope, $state) {
@@ -107,41 +100,47 @@ angular.module('starter', [
 	  var z_delta = 0;
 	  var treshold = 250;
 	  var num_pow = 0;
-	  
-	  document.addEventListener("deviceready", function () {
-		  var watch = $cordovaDeviceMotion.watchAcceleration(options);
-		  watch.then(
-	      null,
-	      function(error) {
-	      // An error occurred
-	      },
-	      function(result) {
-	    	cnt++;
-	        x_delta += Math.abs(result.x) - x_prev;
-	        y_delta += Math.abs(result.y) - y_prev;
-	        z_delta += Math.abs(result.z) - z_prev;
-	        x_prev = result.x;
-	        y_prev = result.y;
-	        z_prev = result.z;
-	        if(cnt%10 == 0) {
-	        	console.log(x_delta);
-	        	console.log(y_delta);
-	        	console.log(z_delta);
-	        	if((x_delta + y_delta + z_delta) > threshold) {
-	        		$scope.val = 'POW!';
-	        		num_pow++;
-	        		$('#punchVal').text(num_pow);
-	        		$('#fill').height(100-(10*num_pow) + '%');
-	        	} else {
-	        		$scope.val = 'PUNCH';
-	        	}
-	        	x_delta = 0;
-	        	y_delta = 0;
-	        	z_delta = 0;
-	        }
-	    });
 
-	  }, false);
+	  var watch = $cordovaDeviceMotion.watchAcceleration(options);
+		var num_pow = 0;
+	  document.addEventListener("deviceready", function () {
+			var cnt = 0;
+			var x_prev = 0;
+			var y_prev = 0;
+			var z_prev = 0;
+			var x_delta = 0;
+			var y_delta = 0;
+			var z_delta = 0;
+			var threshold = 250;
+			    watch.then(
+			      null,
+			      function(error) {
+			      // An error occurred
+			      },
+			      function(result) {
+			    	cnt++;
+			        x_delta += Math.abs(result.x) - x_prev;
+			        y_delta += Math.abs(result.y) - y_prev;
+			        z_delta += Math.abs(result.z) - z_prev;
+			        x_prev = result.x;
+			        y_prev = result.y;
+			        z_prev = result.z;
+			        if(cnt%10 == 0) {
+			        	if((x_delta + y_delta + z_delta) > threshold) {
+			        		$scope.val = 'POW!';
+			        		num_pow++;
+			        		$('#punchVal').text(10*num_pow);
+			        		$('#fill').height(100-(10*num_pow) + '%');
+			        	} else {
+			        		$scope.val = 'PUNCH';
+			        	}
+			        	x_delta = 0;
+			        	y_delta = 0;
+			        	z_delta = 0;
+			        }
+			    });
+
+			  }, false);
 	  
 
 	  var timeLeft = 10, cinterval;
@@ -150,6 +149,7 @@ angular.module('starter', [
 	    var timeDec = function (){
 	        timeLeft--;
 	        if(timeLeft === 0){
+	        	watch.clearWatch();
         		$('#punchVal').text('0');
 	        	$('#fill').height(100 + '%');
 	        	$state.go('superhero', {score:num_pow});
@@ -162,6 +162,15 @@ angular.module('starter', [
   
   .controller('SuperHeroCtrl', function ($scope, $stateParams) {
 	  console.log('SuperHeroCtrl');
-	  console.log($stateParams.score);
 	  $scope.val = $stateParams.score;
+		var text = "";
+		var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+		for( var i=0; i < 24; i++ ) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		var ref = new Firebase("https://luminous-heat-5410.firebaseio.com/");
+		var users = ref.child('users');
+		users.child(text).set({
+			score: $stateParams.score
+		});
   })
