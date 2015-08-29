@@ -1,0 +1,27 @@
+doctype html
+//if lt IE 7 
+  html.ie.ie6(lang='en')  
+//if IE 7 
+  html.ie.ie7(lang='en')  
+//if IE 8 
+  html.ie.ie8(lang='en')  
+// [if (gte IE 9)|!(IE)] <!
+html(lang='en')
+  // <![endif]
+  head
+    meta(charset='utf-8')
+    title SuperHero School - Because You're Awesome!
+    meta(name='author', content='SuperHero School')
+    meta(name='keywords', content='')
+    meta(name='description', content='')
+    // Mobile Specific Metas
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    // Template CSS
+    link(href='css/landing.css', rel='stylesheet')
+    // Google Fonts
+    link(href='http://fonts.googleapis.com/css?family=Raleway:400,700,800&subsetting=all', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300', rel='stylesheet', type='text/css')
+    //if lt IE 9
+      meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  body(data-spy='scroll', data-target='.navigation')
+    h1 SuperHero School

@@ -1,0 +1,45 @@
+{
+  "name": "superheroschool-web",
+  "version": "0.0.1",
+  "homepage": "",
+  "authors": [
+    "Chad Cravens <chad.cravens@ossys.com>"
+  ],
+  "description": "superheroschool-web",
+  "moduleType": [
+    "node"
+  ],
+  "license": "Proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "angular-animate": "~1.4.4",
+    "angular-bootstrap": "~0.13.3",
+    "angular-mocks": "~1.4.4",
+    "angular-sanitize": "~1.4.4",
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "bootstrap-sass": "~3.3.5",
+    "bootstrap-social": "~4.9.1",
+    "bourbon": "~4.0.2",
+    "components-font-awesome": "~4.4.0",
+    "foundation": "~5.4.5",
+    "html5shiv": "~3.7.3",
+    "icomoon-sass": "~1.0.0",
+    "ionicons": "~2.0.0",
+    "jquery-flot": "~0.8.3",
+    "jquery-prettyPhoto": "~3.1.6",
+    "jquery-ui": "~1.11.4",
+    "normalize.css": "~3.0.2",
+    "respond": "~1.4.2",
+    "sass-bootstrap-glyphicons": "~1.0.0"
+  }
+}
