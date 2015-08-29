@@ -17,11 +17,24 @@
   .col-xs-6
     #punch-gauge
      #fill
+       p#punchVal 80
   .col-xs-4
     ul.hero-list.text-center
       li
-        img(src='img/hulk2.png')
+        img(src='img/hulk.png')
       li
-        img(src='img/thing.png')
+        img(src='img/wolverine.png')
       li
-        img(src='img/capAmer.png')
+        img(src='img/cap.png')
+        
+.testRow.text-center.row
+  button#test.btn.btn-lg Test
+  
+script(type='text/javascript').
+  $(document).ready(function(){
+  $('#test').click(function(){
+  | var num = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+  $('#punchVal').text(num);
+  $('#fill').height(100-num + '%');
+  }); 
+  });

@@ -1,5 +1,5 @@
 require 'ionic'
-
+require 'jquery'
 require '../../www/js/templates'
 require './components/landing/index.coffee'
 

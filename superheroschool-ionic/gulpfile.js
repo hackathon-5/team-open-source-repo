@@ -40,7 +40,8 @@ var products = {
 		'./app/coffee/landing.coffee': './www/js/landing.js'
 	},
 	deps: {
-		"ionic": "./bower_components/ionic/js/ionic.bundle.js"
+		"ionic": "./bower_components/ionic/js/ionic.bundle.js",
+		"jquery": "./bower_components/jquery/dist/jquery.min.js"
 	}
   }
 };
