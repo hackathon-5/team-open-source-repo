@@ -1,6 +1,6 @@
 @font-face {
     font-family: ComixLoud;
-    src: url('/fonts/ComixLoud/ComixLoud.ttf');
+    src: url('../fonts/ComixLoud/ComixLoud.ttf');
 }
 
 ul {
@@ -32,7 +32,7 @@ body {
 
 .start_container {
 	display: inline-block;
-	background-image: url("/img/ryBubble.png");
+	background-image: url("../img/ryBubble.png");
 	height: 600px;
 	width: 390px;
 }
