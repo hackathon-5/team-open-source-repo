@@ -24,7 +24,7 @@ var
 var products = {
   resources: {
 	resources: {
-      './res/{img,sfx}/**': './public/'
+      './res/{img,sfx,font}/**': './public/'
     },
     templates: {
         './app/coffee/components/**/templates/*.jade': './public/js/'
