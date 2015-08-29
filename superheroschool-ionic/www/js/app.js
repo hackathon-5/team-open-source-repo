@@ -160,9 +160,8 @@ angular.module('starter', [
   })
   
   
-  .controller('SuperHeroCtrl', function ($scope, $stateParams, $firebaseObject) {
+  .controller('SuperHeroCtrl', function ($scope, $stateParams) {
 	  console.log('SuperHeroCtrl');
-	  console.log($stateParams.score);
 	  $scope.val = $stateParams.score;
 		var text = "";
 		var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -170,8 +169,8 @@ angular.module('starter', [
 			text += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 		var ref = new Firebase("https://luminous-heat-5410.firebaseio.com/");
-		var users = ref.child('users/' + test);
-		users.set({
+		var users = ref.child('users');
+		users.child(text).set({
 			score: $stateParams.score
 		});
   })
