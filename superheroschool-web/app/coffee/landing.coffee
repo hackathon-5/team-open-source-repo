@@ -15,6 +15,7 @@ module.exports = angular.module 'superheroschool.landing', [
   'ui.bootstrap'
   'firebase'
   'superheroschool.templates'
+  'superheroschool.landing.home'
 ]
 
 .run([
