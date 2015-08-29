@@ -1,0 +1,26 @@
+@font-face {
+    font-family: ComixLoud;
+    src: url('../font/ComixLoud/ComixLoud.ttf');
+}
+
+body {
+	font-family: ComixLoud;
+	color: #fed136;
+	background-image: url("../img/blue.jpg");
+    background-color: blue;
+    background-size: cover;
+}
+
+.title {
+	margin-top: 200px;
+	font-size: 60px;
+}
+
+
+.battle-row {
+	margin-top: 9em;
+}
+
+.battle-row img {
+	height: 400px;
+}

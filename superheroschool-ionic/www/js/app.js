@@ -115,6 +115,9 @@ angular.module('starter', [
 	        y_prev = result.y;
 	        z_prev = result.z;
 	        if(cnt%10 == 0) {
+	        	console.log(x_delta);
+	        	console.log(y_delta);
+	        	console.log(z_delta);
 	        	if((x_delta + y_delta + z_delta) > threshold) {
 	        		$scope.val = 'POW!';
 	        		num_pow++;
