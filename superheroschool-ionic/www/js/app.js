@@ -34,6 +34,11 @@ angular.module('starter', [
         controller: 'TrainingModesCtrl',
         templateUrl: 'tpls/training-modes.html'
       })
+      .state('countdown', {
+          url: '/countdown',
+          controller: 'CountdownCtrl',
+          templateUrl: 'tpls/countdown.html'
+      })
       .state('punch-training', {
         url: '/punch-training',
         controller: 'PunchTrainingCtrl',
@@ -44,12 +49,36 @@ angular.module('starter', [
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise("/");
   })
-  .controller('HomeCtrl', function ($scope, $cordovaDeviceMotion) {
+  .controller('HomeCtrl', function ($scope) {
 	  console.log('IN HOMECTRL');
   })
-  .controller('TrainingModesCtrl', function ($scope, $cordovaDeviceMotion) {
+  .controller('TrainingModesCtrl', function ($scope) {
 	  console.log('TrainingModesCtrl');
   })
+  .controller('CountdownCtrl', function ($scope, $state) {
+	  console.log('CountdownCtrl');
+	  $scope.val = 5;
+	  
+	  var timeLeft = 5, cinterval;
+
+	    var timeDec = function (){
+	    	console.log($scope.val);
+	        timeLeft--;
+	        $scope.val = timeLeft;
+	        $scope.$apply();
+	        if(timeLeft === 0){
+	        	$state.go('punch-training');
+	            clearInterval(cinterval);
+	        }
+	    };
+
+	    cinterval = setInterval(timeDec, 1000);
+  })
+  
+  
+  
+  
+  
   .controller('PunchTrainingCtrl', function ($scope, $cordovaDeviceMotion) {
 	  console.log('PunchTrainingCtrl');
 	  
