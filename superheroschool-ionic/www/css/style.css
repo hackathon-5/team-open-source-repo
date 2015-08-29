@@ -7,6 +7,10 @@ ul {
 	padding-left: 0px;
 }
 
+.padding20 {
+	margin-top: 20px;
+}
+
 .back {
 	display: inline-block;
     background-color: red;
@@ -140,4 +144,8 @@ div.countdown {
 	font-size: 12em;
 	text-align: center;
     margin-top: .4em;
+}
+
+#hero {
+	height: 300px;
 }
