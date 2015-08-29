@@ -25,7 +25,8 @@ var
 var products = {
   resources: {
 	resources: {
-      './res/{img,sfx}/**': './www/'
+	  './res/index.html': './www/',
+      './res/{img,fonts}/**': './www/'
     },
     templates: {
         './app/coffee/components/**/templates/*.jade': './www/js/'
@@ -124,7 +125,7 @@ var get_product = function (product, fn) {
 };
 
 gulp.task('clean', function (cb) {
-  del(['./public/*'], cb);
+  del(['./www/*'], cb);
 });
 
 //Generates both full and minified css files.  Source comments get stripped from minified.
@@ -210,6 +211,7 @@ gulp.task('watch', function () {
   gulp.watch('./app/coffee/components/**/templates/*.jade', ['templates', 'coffeeify']);
   gulp.watch('./app/coffee/**/*.coffee', ['coffeelint', 'coffeeify']);
   gulp.watch('./res/{font,html,img,sfx}/**', ['resources']);
+  gulp.watch('./res/index.html', ['resources']);
 });
 
 gulp.task('connect', ['build'], function () {

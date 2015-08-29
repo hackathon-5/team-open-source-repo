@@ -1,6 +1,6 @@
 @font-face {
     font-family: ComixLoud;
-    src: url('fonts/ComixLoud.ttf');
+    src: url('/fonts/ComixLoud/ComixLoud.ttf');
 }
 
 ul {
@@ -8,11 +8,14 @@ ul {
 }
 
 /*Home Screen*/
-body { 
-	background-image: url("imgs/blue.jpg");	
+body {
 	font-family: ComixLoud;
 	color: #FFF;
+}
 
+.scroll-bg {
+  background: url($bg-img);
+  background-size: cover;
 }
 
 .title_pg1{
@@ -26,7 +29,7 @@ body {
 
 .start_container {
 	display: inline-block;
-	background-image: url("imgs/ryBubble.png");
+	background-image: url("/img/ryBubble.png");
 	height: 600px;
 	width: 100%;
 }
