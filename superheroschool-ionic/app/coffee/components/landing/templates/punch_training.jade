@@ -1,21 +1,27 @@
-h1.text-center
-  | PUNCH!
-.row
-  .col-xs-3
+.title_row.tr_modes
+  h1.title_pg2.text-center
+    | PUNCH!
+.container.text-center
+  .back
+    a(ui-sref="training-modes")
+      | BACK
+.row.gauge-row
+  .col-xs-4
     ul.hero-list.text-center
       li
-        img.img-responsive(src='img/superman.png')
+        img(src='img/superman.png')
       li
-        img.img-responsive(src='img/batman.png')
+        img(src='img/batman.png')
       li
-        img.img-responsive(src='img/lantern.png')
+        img(src='img/lantern.png')
   .col-xs-6
     #punch-gauge
-  .col-xs-3
+     #fill
+  .col-xs-4
     ul.hero-list.text-center
       li
-        img.img-responsive(src='img/hulk2.png')
+        img(src='img/hulk2.png')
       li
-        img.img-responsive(src='img/thing.png')
+        img(src='img/thing.png')
       li
-        img.img-responsive(src='img/capAmer.png')
+        img(src='img/capAmer.png')

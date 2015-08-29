@@ -7,10 +7,26 @@ ul {
 	padding-left: 0px;
 }
 
+.back {
+	display: inline-block;
+    background-color: red;
+    border: 2px solid yellow;
+    border-radius: 11px;
+
+}
+
+.back a {
+	color: yellow;
+    display: block;
+    padding: 6px 2px 0px 2px;
+}
+
 /*Home Screen*/
 body {
 	font-family: ComixLoud;
 	color: #FFF;
+	width: 100%;
+	height: 670px;
 }
 
 .scroll-bg {
@@ -18,14 +34,13 @@ body {
 }
 
 .title_row {
-    margin-top: 90px;
+    margin-top: 5px;
 }
 
 .title_pg1{
 	color: #fed136;
-	font-size: 37px;
+	font-size: 33px;
 	line-height: 2;
-	transform: rotate(-40deg);
 	margin: 0 0px -30px 20px;
 
 }
@@ -38,9 +53,8 @@ body {
 }
 
 .start_row .start {
-    margin-top: 72%;
-    margin-left: 35px;
-    transform: rotate(-32deg);
+    margin-top: 70%;
+    margin-left: 13px;
 }
 
 .start_row a  {
@@ -58,7 +72,7 @@ body {
 	line-height: normal;
 	color: #000;
 	line-height: 2;
-	font-size: 27px;
+	font-size: 25px;
 }
 
 /*Training Modes*/
@@ -71,6 +85,7 @@ body {
 	color: #fed136;
 	font-size: 37px;
 	line-height: 2;
+	margin-bottom: 0px;
 }
 
 .tr-mode-container { 
@@ -93,17 +108,24 @@ body {
 /*Punch Training*/
 .hero-list li {
 	margin-bottom: 20px;
-}
+} 
 
 .hero-list li img {
 	width: 100px;
 }
 
+.gauge-row {
+	margin: 10px 0px 0px 0px;
+}
+
 #punch-gauge {
-	height: 600px;
-	width: 125px;
+	height: 500px;
 	background-color: yellow;
 	margin: 0 auto;
 	border: 2px solid red;
+}
 
+#fill {
+    background-color: red;
+    height: 20%;
 }
