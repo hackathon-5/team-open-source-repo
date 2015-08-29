@@ -45,7 +45,7 @@ angular.module('starter', [
         templateUrl: 'tpls/punch-training.html'
       })
       .state('superhero', {
-          url: '/superhero',
+          url: '/superhero/:score',
           controller: 'SuperHeroCtrl',
           templateUrl: 'tpls/superhero.html'
         })
@@ -89,19 +89,19 @@ angular.module('starter', [
 	$scope.val = 'PUNCH';
 
 	  var options = { frequency: 100 };
-
+	  var cnt = 0;
+	  var x_prev = 0;
+	  var y_prev = 0;
+	  var z_prev = 0;
+	  var x_delta = 0;
+	  var y_delta = 0;
+	  var z_delta = 0;
+	  var treshold = 250;
+	  var num_pow = 0;
+	  
 	  document.addEventListener("deviceready", function () {
-	var cnt = 0;
-	var x_prev = 0;
-	var y_prev = 0;
-	var z_prev = 0;
-	var x_delta = 0;
-	var y_delta = 0;
-	var z_delta = 0;
-	var threshold = 250;
-	var num_pow = 0;
-	var watch = $cordovaDeviceMotion.watchAcceleration(options);
-	    watch.then(
+		  var watch = $cordovaDeviceMotion.watchAcceleration(options);
+		  watch.then(
 	      null,
 	      function(error) {
 	      // An error occurred
@@ -118,7 +118,7 @@ angular.module('starter', [
 	        	if((x_delta + y_delta + z_delta) > threshold) {
 	        		$scope.val = 'POW!';
 	        		num_pow++;
-	        		$('#punchVal').text(10*num_pow);
+	        		$('#punchVal').text(num_pow);
 	        		$('#fill').height(100-(10*num_pow) + '%');
 	        	} else {
 	        		$scope.val = 'PUNCH';
@@ -133,13 +133,14 @@ angular.module('starter', [
 	  
 
 	  var timeLeft = 10, cinterval;
+	  
 
 	    var timeDec = function (){
 	        timeLeft--;
 	        if(timeLeft === 0){
         		$('#punchVal').text('0');
 	        	$('#fill').height(100 + '%');
-	        	$state.go('superhero');
+	        	$state.go('superhero', {score:num_pow});
 	        }
 	    };
 
@@ -149,5 +150,6 @@ angular.module('starter', [
   
   .controller('SuperHeroCtrl', function ($scope, $stateParams) {
 	  console.log('SuperHeroCtrl');
-	  console.log($stateParams);
+	  console.log($stateParams.score);
+	  $scope.val = $stateParams.score;
   })
