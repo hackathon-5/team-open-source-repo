@@ -44,6 +44,11 @@ angular.module('starter', [
         controller: 'PunchTrainingCtrl',
         templateUrl: 'tpls/punch-training.html'
       })
+      .state('superhero', {
+          url: '/superhero',
+          controller: 'SuperHeroCtrl',
+          templateUrl: 'tpls/superhero.html'
+        })
     ;
 
     // if none of the above states are matched, use this as the fallback
@@ -79,13 +84,23 @@ angular.module('starter', [
   
   
   
-  .controller('PunchTrainingCtrl', function ($scope, $cordovaDeviceMotion) {
+  .controller('PunchTrainingCtrl', function ($scope, $state, $cordovaDeviceMotion) {
 	  console.log('PunchTrainingCtrl');
-	  
-	  var options = { frequency: 10 };
+
+	$scope.val = 'PUNCH';
+
+	  var options = { frequency: 100 };
 
 	  document.addEventListener("deviceready", function () {
-
+	var cnt = 0;
+	var x_prev = 0;
+	var y_prev = 0;
+	var z_prev = 0;
+	var x_delta = 0;
+	var y_delta = 0;
+	var z_delta = 0;
+	var threshold = 250;
+	var num_pow = 0;
 	var watch = $cordovaDeviceMotion.watchAcceleration(options);
 	    watch.then(
 	      null,
@@ -93,12 +108,45 @@ angular.module('starter', [
 	      // An error occurred
 	      },
 	      function(result) {
-	        var X = result.x;
-	        var Y = result.y;
-	        var Z = result.z;
-	        var timeStamp = result.timestamp;
-	        $scope.val = X;
+	    	cnt++;
+	        x_delta += Math.abs(result.x) - x_prev;
+	        y_delta += Math.abs(result.y) - y_prev;
+	        z_delta += Math.abs(result.z) - z_prev;
+	        x_prev = result.x;
+	        y_prev = result.y;
+	        z_prev = result.z;
+	        if(cnt%10 == 0) {
+	        	if((x_delta + y_delta + z_delta) > threshold) {
+	        		$scope.val = 'POW!';
+	        		num_pow++;
+	        		$('#punchVal').text(10*num_pow);
+	        		$('#fill').height(100-(10*num_pow) + '%');
+	        	} else {
+	        		$scope.val = 'PUNCH';
+	        	}
+	        	x_delta = 0;
+	        	y_delta = 0;
+	        	z_delta = 0;
+	        }
 	    });
 
 	  }, false);
+	  
+
+	  var timeLeft = 10, cinterval;
+
+	    var timeDec = function (){
+	        timeLeft--;
+	        if(timeLeft === 0){
+	        	$('#fill').height(100 + '%');
+	        	$state.go('superhero');
+	        }
+	    };
+
+	    cinterval = setInterval(timeDec, 1000);
+  })
+  
+  
+  .controller('SuperHeroCtrl', function ($scope) {
+	  console.log('SuperHeroCtrl');
   })

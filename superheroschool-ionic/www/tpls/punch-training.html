@@ -1,5 +1,5 @@
 <div class="title_row tr_modes">
-  <h1 class="title_pg2 text-center">PUNCH!{{val}}</h1>
+  <h1 class="title_pg2 text-center">{{val}}</h1>
 </div>
 <div class="container text-center">
   <div class="back"><a ui-sref="training-modes">BACK</a></div>
@@ -15,7 +15,7 @@
   <div class="col-xs-6">
     <div id="punch-gauge">
       <div id="fill">
-        <p id="punchVal">80</p>
+        <p id="punchVal">0</p>
       </div>
     </div>
   </div>
@@ -27,15 +27,3 @@
     </ul>
   </div>
 </div>
-<div class="testRow text-center row">
-  <button id="test" class="btn btn-lg">Test</button>
-</div>
-<script type="text/javascript">
-  $(document).ready(function(){
-  $('#test').click(function(){
-	var num = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
-  $('#punchVal').text(num);
-  $('#fill').height(100-num + '%');
-  });
-  });
-</script>
