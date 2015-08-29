@@ -1,246 +1,52 @@
-var
-  pkg =			require('./package.json'),
-  async =		require('async'),
-  beep =		require('beepbeep');
-  browserify =	require('browserify'),
-  colors =		require('colors'),
-  del =			require('del'),
-  gulp =		require('gulp'),
-  coffeelint =	require('gulp-coffeelint'),
-  concat =		require('gulp-concat'),
-  connect =		require('gulp-connect'),
-  html2js =		require('gulp-html2js'),
-  insert =		require('gulp-insert'),
-  jade =		require('gulp-jade'),
-  livereload =	require('gulp-livereload'),
-  minifyCss =	require('gulp-minify-css'),
-  rename =		require('gulp-rename'),
-  sass =		require('gulp-sass'),
-  streamify =	require('gulp-streamify'),
-  uglify =		require('gulp-uglify'),
-  gutil =		require('gulp-util'),
-  path =		require('path'),
-  source =		require('vinyl-source-stream');
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var bower = require('bower');
+var concat = require('gulp-concat');
+var sass = require('gulp-sass');
+var minifyCss = require('gulp-minify-css');
+var rename = require('gulp-rename');
+var sh = require('shelljs');
 
-var products = {
-  resources: {
-	resources: {
-	  './res/index.html': './www/',
-      './res/{img,fonts}/**': './www/'
-    },
-    templates: {
-        './app/coffee/components/**/templates/*.jade': './www/js/'
-    }
-  },
-  landing: {
-    scss: {
-    	'./app/sass/landing.scss': './www/css/landing.css'
-	},
-	coffee: {
-		'./app/coffee/landing.coffee': './www/js/landing.js'
-	},
-	deps: {
-		"ionic": "./bower_components/ionic/js/ionic.bundle.js",
-		"jquery": "./bower_components/jquery/dist/jquery.min.js"
-		"ngCordova": "./bower_components/ngCordova/dist/ng-cordova.js"
-	}
+var paths = {
+  sass: ['./scss/**/*.scss']
+};
+
+gulp.task('default', ['sass']);
+
+gulp.task('sass', function(done) {
+  gulp.src('./scss/ionic.app.scss')
+    .pipe(sass({
+      errLogToConsole: true
+    }))
+    .pipe(gulp.dest('./www/css/'))
+    .pipe(minifyCss({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(gulp.dest('./www/css/'))
+    .on('end', done);
+});
+
+gulp.task('watch', function() {
+  gulp.watch(paths.sass, ['sass']);
+});
+
+gulp.task('install', ['git-check'], function() {
+  return bower.commands.install()
+    .on('log', function(data) {
+      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+    });
+});
+
+gulp.task('git-check', function(done) {
+  if (!sh.which('git')) {
+    console.log(
+      '  ' + gutil.colors.red('Git is not installed.'),
+      '\n  Git, the version control system, is required to download Ionic.',
+      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
+      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+    );
+    process.exit(1);
   }
-};
-
-var browserify_helper = function (res, cb) {
-	  var b = browserify({debug: true})
-	    .transform('coffeeify')
-	    .add(res[0]);
-
-		for(key in products[res[2]]['deps']) {
-			if(key !== '__product__') {
-				b.external(key);
-			}
-		}
-
-	  var stream = b.bundle()
-	  	.on('error', function(e) {
-	  		beep();
-	  		gutil.log('\n\n')
-	  		gutil.log('==================================='.red);
-	  		gutil.log('Coffeescript Error'.underline.red);
-	  		gutil.log(e.toString());
-	  		gutil.log('===================================\n\n'.red);
-	  		this.emit('end');
-		})
-	    .pipe(source(path.basename(res[1])))
-	    .pipe(gulp.dest(path.dirname(res[1])))
-	    .pipe(streamify(uglify()))
-	    .pipe(rename({extname: '.min.js'}))
-	    .pipe(gulp.dest(path.dirname(res[1])));
-
-	  if (cb) {
-	    stream.on('end', cb);
-	  } else {
-	    return stream;
-	  }
-};
-
-var deps_helper = function (res, cb) {
-	var b = browserify()
-    .transform('browserify-shim');
-
-	for(key in res) {
-		if(key !== '__product__' && key !== 'angular-mocks') {
-			b.require(res[key], {expose: key});
-		}
-	}
-
-	var stream = b.bundle()
-		.pipe(source(res['__product__'] + '.deps.js'))
-		.pipe(gulp.dest('./www/js/'));
-//	    .pipe(streamify(uglify()))
-//	    .pipe(rename(res['__product__'] + '.deps.min.js'))
-//		.pipe(gulp.dest('./www/js/'));
-
-	if (cb) {
-		stream.on('end', cb);
-	} else {
-		return stream;
-	}
-};
-
-var get_product = function (product, fn) {
-	var array = new Array();
-	for(k in products) {
-		for(key in products[k]) {
-			if(product === 'deps' && key === 'deps') {
-				products[k][key]['__product__'] = k;
-				array.push(products[k][key]);
-			} else if(key === product) {
-				for(f in products[k][key]) {
-					var tmp = new Array();
-					tmp.push(f);
-					tmp.push(products[k][key][f]);
-					tmp.push(k);
-					array.push(tmp);
-				}
-			}
-		}
-	}
-	return array.map(fn);
-};
-
-gulp.task('clean', function (cb) {
-  del(['./www/*'], cb);
+  done();
 });
-
-//Generates both full and minified css files.  Source comments get stripped from minified.
-gulp.task('sass', function (cb) {
-  async.parallel(get_product('scss', function (scss) {
-	return function(done) {
-	  	gulp.src(scss[0])
-	    .pipe(sass({sourceComments: 'map'}))
-	    .pipe(rename(path.basename(scss[1])))
-	    .pipe(gulp.dest(path.dirname(scss[1])))
-	    .pipe(minifyCss())
-	    .pipe(rename({extname: '.min.css'}))
-	    .pipe(gulp.dest(path.dirname(scss[1])))
-	    .on('end', done);
-	}
-  }), cb);
-});
-
-//TODO: separate build artifacts, templates.js is only an intermediate...
-gulp.task('templates', function (cb) {
-	async.parallel(get_product('templates', function (tpl) {
-		return function (done) {
-		   gulp.src([tpl[0]])
-		     .pipe(jade({
-		    	 locals: {}
-		     }))
-		     .on('error', function(e) {
-		   		beep();
-		  		gutil.log('\n\n')
-		  		gutil.log('==================================='.red);
-		  		gutil.log('Jade Error'.underline.red);
-		  		gutil.log(e.toString());
-		  		gutil.log('===================================\n\n'.red);
-		     })
-		     .pipe(html2js({
-		       outputModuleName: 'superheroschool.templates',
-		       base: './www/js/',
-		       // This rename function is for angular-foundation templates
-		       rename : function (modulePath) {
-	    	      var moduleName = modulePath.replace('../../app/coffee/components/', '');
-	    	      return moduleName;
-	    	    }
-		      }))
-		     .pipe(concat('templates.js'))
-		     .pipe(insert.prepend("require('ionic');"))
-		     .pipe(gulp.dest(tpl[1]))
-		     .on('end', done);
-		 };
-	}), cb);
-});
-
-gulp.task('coffeeify', ['templates'], function (cb) {
-	async.parallel(get_product('coffee', function (res) {
-		return function (done) {
-			browserify_helper(res, done);
-		}
-	}), function () {
-		del('./www/js/templates.js', cb);
-	});
-});
-
-gulp.task('deps', function (cb) {
-	async.parallel(get_product('deps', function (res) {
-		return function (done) {
-			deps_helper(res, done);
-		}
-	}), cb);
-});
-
-gulp.task('resources', function (cb) {
-  var streams = get_product('resources', function (res) {
-    return function (done) {
-      gulp.src(res[0])
-        .pipe(gulp.dest(res[1]))
-        .on('end', done);
-    }
-  });
-  async.parallel(streams, cb);
-});
-
-gulp.task('watch', function () {
-  gulp.watch('./app/sass/**/*.{scss,sass}', ['sass']);
-  gulp.watch('./app/coffee/components/**/templates/*.jade', ['templates', 'coffeeify']);
-  gulp.watch('./app/coffee/**/*.coffee', ['coffeelint', 'coffeeify']);
-  gulp.watch('./res/{font,html,img,sfx}/**', ['resources']);
-  gulp.watch('./res/index.html', ['resources']);
-});
-
-gulp.task('connect', ['build'], function () {
-  connect.server({
-    port: 8000,
-    root: './www/',
-    livereload: true,
-    middleware: function (connect, opt) {
-      return [
-        connect.logger('dev')
-      ]
-    }
-  });
-});
-
-gulp.task('reload', ['build'], function (cb) {
-  gulp.src('./www/**/*')
-    .pipe(connect.reload())
-    .on('end', cb);
-});
-
-gulp.task('coffeelint', function (cb) {
-  return gulp.src('./app/coffee/**/*.coffee')
-    .pipe(coffeelint())
-    .pipe(coffeelint.reporter());
-});
-
-gulp.task('default', ['build', 'connect', 'watch']);
-gulp.task('scss', ['sass']);
-gulp.task('build', ['sass', 'templates', 'coffeeify', 'deps', 'resources']);

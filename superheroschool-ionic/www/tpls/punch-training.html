@@ -1,0 +1,41 @@
+<div class="title_row tr_modes">
+  <h1 class="title_pg2 text-center">PUNCH!</h1>
+</div>
+<div class="container text-center">
+  <div class="back"><a ui-sref="training-modes">BACK</a></div>
+</div>
+<div class="row gauge-row">
+  <div class="col-xs-4">
+    <ul class="hero-list text-center">
+      <li><img src="img/superman.png"/></li>
+      <li><img src="img/batman.png"/></li>
+      <li><img src="img/lantern.png"/></li>
+    </ul>
+  </div>
+  <div class="col-xs-6">
+    <div id="punch-gauge">
+      <div id="fill">
+        <p id="punchVal">80</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <ul class="hero-list text-center">
+      <li><img src="img/hulk.png"/></li>
+      <li><img src="img/wolverine.png"/></li>
+      <li><img src="img/cap.png"/></li>
+    </ul>
+  </div>
+</div>
+<div class="testRow text-center row">
+  <button id="test" class="btn btn-lg">Test</button>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+  $('#test').click(function(){
+	var num = Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+  $('#punchVal').text(num);
+  $('#fill').height(100-num + '%');
+  });
+  });
+</script>
