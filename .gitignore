@@ -5,6 +5,7 @@ RemoteSystemsTempFiles/
 superheroschool-ionic/node_modules/
 superheroschool-ionic/platforms/
 superheroschool-ionic/plugins/
+superheroschool-ionic/bower_components/
 
 #web
 .DS_Store
