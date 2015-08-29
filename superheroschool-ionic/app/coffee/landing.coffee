@@ -29,6 +29,16 @@ module.exports = angular.module 'superheroschool.landing', [
       controller: "HomeCtrl"
       templateUrl: "landing/templates/home.html"
     )
+    .state("training-modes",
+      url: "/training-modes"
+      controller: "TrainingModesCtrl"
+      templateUrl: "landing/templates/training_modes.html"
+    )
+    .state("punch-training",
+      url: "/punch-training"
+      controller: "PunchTrainingCtrl"
+      templateUrl: "landing/templates/punch_training.html"
+    )
 
     $urlRouterProvider.otherwise "/"
 ])
