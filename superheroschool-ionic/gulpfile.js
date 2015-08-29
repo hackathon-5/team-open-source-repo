@@ -42,6 +42,7 @@ var products = {
 	deps: {
 		"ionic": "./bower_components/ionic/js/ionic.bundle.js",
 		"jquery": "./bower_components/jquery/dist/jquery.min.js"
+		"ngCordova": "./bower_components/ngCordova/dist/ng-cordova.js"
 	}
   }
 };

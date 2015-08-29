@@ -1,10 +1,12 @@
 require 'ionic'
 require 'jquery'
+require 'ngCordova'
 require '../../www/js/templates'
 require './components/landing/index.coffee'
 
 module.exports = angular.module 'superheroschool.landing', [
   'ionic'
+  'ngCordova'
   'ui.router'
   'superheroschool.templates'
   'superheroschool.landing.home'
