@@ -23,13 +23,7 @@ html(lang='en')
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800,700,300', rel='stylesheet', type='text/css')
     //if lt IE 9
       meta(http-equiv='X-UA-Compatible', content='IE=edge')
-  body(data-spy='scroll', data-target='.navigation')
-    .row.text-center
-      h1.title SUPERHERO SCHOOL
-    .row.battle-row.text-center
-      .col-md-2.col-md-offset-2.player-1
-        img#p1.img-responsive(src='img/10.png')
-      .col-md-4.text-center
-        h1.title VS.
-      .col-md-4.player-2
-        img#p2.img-responsive(src='img/5.png')
+  body(data-spy='scroll', data-target='.navigation', ng-app='superheroschool.landing')
+    ui-view
+    script(src='js/landing.deps.js')
+    script(src='js/landing.js')

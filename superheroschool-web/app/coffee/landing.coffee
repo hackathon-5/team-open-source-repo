@@ -1,11 +1,11 @@
+require 'jquery'
+require 'jquery-ui'
+require 'bootstrap'
 require 'angular'
 require 'angular-ui-router'
 require 'angular-bootstrap'
 require 'angular-bootstrap-tpls'
-require 'bootstrap'
 require 'firebase'
-require 'jquery'
-require 'jquery-ui'
 
 require '../../public/js/templates'
 require './components/landing/index.coffee'
@@ -13,12 +13,15 @@ require './components/landing/index.coffee'
 module.exports = angular.module 'superheroschool.landing', [
   'ui.router'
   'ui.bootstrap'
+  'firebase'
   'superheroschool.templates'
+  'superheroschool.landing.home'
 ]
 
 .run([
   '$log'
   ($log) ->
+    $log.log('IN HERE')
 ])
 
 .config([
