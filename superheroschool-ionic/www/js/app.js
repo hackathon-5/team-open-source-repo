@@ -45,7 +45,7 @@ angular.module('starter', [
         templateUrl: 'tpls/punch-training.html'
       })
       .state('superhero', {
-          url: '/superhero/:score',
+          url: '/superhero',
           controller: 'SuperHeroCtrl',
           templateUrl: 'tpls/superhero.html'
         })
@@ -137,10 +137,9 @@ angular.module('starter', [
 	    var timeDec = function (){
 	        timeLeft--;
 	        if(timeLeft === 0){
-        		$('#punchVal').text(0);
+        		$('#punchVal').text('0');
 	        	$('#fill').height(100 + '%');
-	        	console.log('GOING: ' + num_pow);
-	        	$state.go('/superhero/:score',{score:num_pow});
+	        	$state.go('superhero');
 	        }
 	    };
 
